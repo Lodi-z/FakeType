@@ -2,8 +2,8 @@ class FileManager {
 	__New() {
 	}
 
-	configFile := "伪输入法设置.ini"
-	novelFile := "这里放小说.txt"
+	configFile := "settings.ini"
+	novelFile := "novel.txt"
 
 	_novelData := NovelData()
 	_settingsData := SettingsData()
@@ -18,6 +18,11 @@ class FileManager {
 
 	; 读取小说文件
 	LoadNovelFile() {
+		if !FileExist(this.novelFile) {
+			FileAppend("", this.novelFile, "UTF-8")
+			this._novelData.novelText := ""
+			return
+		}
 		try {
 			try {
 				fileContent := FileRead(this.novelFile, "UTF-8")
