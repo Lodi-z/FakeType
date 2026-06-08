@@ -3,5 +3,7 @@
 *It's a piece of software that lets you pretend to be working on a document while actually reading a novel.*
 
 ---
-<img width="752" height="1039" alt="82a7c69f625637ad7baa6a68e68c8d19" src="https://github.com/user-attachments/assets/62b020dc-f804-4441-82e9-e5c895bed3ef" />
 <img width="736" height="407" alt="6c9f632d51b0581a219c4b673acfc542" src="https://github.com/user-attachments/assets/84517d47-efc4-4a6d-9423-a8fea8950ae6" />
+<img width="433" height="139" alt="5ac94b2c0ddf794dfa8ecc1e06625d6d" src="https://github.com/user-attachments/assets/38d83f85-90db-4e94-9be3-44bf8d2e004a" />
+<img width="486" height="174" alt="e6b1ee60df2d66346399b637472809f2" src="https://github.com/user-attachments/assets/8d326a9d-a9dc-4550-806f-e4a8b0fc6cc9" />
+<img width="752" height="1064" alt="46e7fc9c5f629e6b635070a6e8ca4f89" src="https://github.com/user-attachments/assets/57a858ef-d880-40e1-9605-8970a792bfa3" />
