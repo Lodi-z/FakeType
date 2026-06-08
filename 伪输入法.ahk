@@ -1,4 +1,4 @@
-﻿#SingleInstance Force
+#SingleInstance Force
 #Include FileManager.ahk
 #Include InputMethodGui.ahk
 #Include SettingsGui.ahk
@@ -25,7 +25,7 @@ Init() {
     for value IN keys 
         Hotkey(value, k => _InputMethodManager.Show(k))
 
-    HotIf((*)=>WinExist("ahk_id " _InputMethodManager.gui.Hwnd))
+    HotIf((*)=>_FileManager._settingsData.minimalMode || WinExist("ahk_id " _InputMethodManager.gui.Hwnd))
     Hotkey("Esc", (*) => _InputMethodManager.Hide())
     
     loop 5 

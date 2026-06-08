@@ -8,6 +8,7 @@ class InputMethodManager {
     __New() {
         CoordMode "Caret", "Screen"
         CoordMode "Mouse", "Screen"
+        CoordMode "ToolTip", "Screen"
     }
     /**@type {Gui}*/
     gui := ""
@@ -61,11 +62,15 @@ class InputMethodManager {
 
     Show(key) {
         if (this._isCompleted) {
-            this.gui["PreviewText"].Value := "完"
-            loop 5
-                this.gui["Cand" A_Index].Text := A_Index ". 完"
-            this._ShowAtCaret()
-            this._SetWinW(240)
+            if _FileManager._settingsData.minimalMode {
+                this._ShowToolTipAtCaret("完")
+            } else {
+                this.gui["PreviewText"].Value := "完"
+                loop 5
+                    this.gui["Cand" A_Index].Text := A_Index ". 完"
+                this._ShowAtCaret()
+                this._SetWinW(240)
+            }
             return
         }
 
@@ -77,6 +82,11 @@ class InputMethodManager {
         this._novelData.pendingCount++
         preview := SubStr(this._novelData.novelText, this._novelData.charIndex, this._novelData.pendingCount)
         preview := StrReplace(StrReplace(preview, "`r", " "), "`n", " ")
+
+        if _FileManager._settingsData.minimalMode {
+            this._ShowToolTipAtCaret(preview)
+            return
+        }
 
         enCount := 0
         zhCount := 0
@@ -117,6 +127,16 @@ class InputMethodManager {
         }
     }
 
+    _ShowToolTipAtCaret(text) {
+        try {
+            CaretGetPos(&x, &y)
+            ToolTip(text, x, y + 20)
+        } catch {
+            MouseGetPos(&mx, &my)
+            ToolTip(text, mx, my + 20)
+        }
+    }
+
     _SetWinW(w) {
         if w != this._lastWinW {
             this._lastWinW := w
@@ -143,14 +163,20 @@ class InputMethodManager {
     }
 
     Hide() {
-        this.gui.Hide()
+        if _FileManager._settingsData.minimalMode
+            ToolTip()  ; 清除极简模式的提示工具
+        else
+            this.gui.Hide()
         this._novelData.pendingCount := 0
         this._inputKeys := ""
         this._lastWinW := 0
     }
 
     OutputContent() {
-        this.gui.Hide()
+        if _FileManager._settingsData.minimalMode
+            ToolTip()  ; 清除极简模式的提示工具
+        else
+            this.gui.Hide()
         if this._novelData.pendingCount = 0 {
             this._inputKeys := ""  ; 清空按键记录
             return

@@ -135,12 +135,13 @@ class SettingsGuiManager {
 
     _CreateBottomSection() {
         this.settingsGui.AddCheckbox("x15 y718 vShowSettingsOnStart", "程序启动时显示设置中心").OnEvent("Click", (*) => this.OnShowSettingsCheckboxChanged())
+        this.settingsGui.AddCheckbox("x15 y738 vMinimalMode", "极简模式（只显示一行）").OnEvent("Click", (*) => this.OnMinimalModeCheckboxChanged())
         this.settingsGui.AddText("x370 y720 w80 h22 c808080 +Right", "作者：洛迪")
-        this.settingsGui.AddButton("x15 y748 w100 h35 vExitBtn", "退出程序").OnEvent("Click", (*) => this.OnExitBtnClick())
-        this.settingsGui.AddButton("x125 y748 w100 h35 vRefreshBtn", "刷新").OnEvent("Click", (*) => this.OnResetLoadFileBtnClick())
-        this.settingsGui.AddButton("x235 y748 w100 h35 vDonateBtn", "支持作者").OnEvent("Click", (*) => Run("https://ifdian.net/a/luodi"))
+        this.settingsGui.AddButton("x15 y768 w100 h35 vExitBtn", "退出程序").OnEvent("Click", (*) => this.OnExitBtnClick())
+        this.settingsGui.AddButton("x125 y768 w100 h35 vRefreshBtn", "刷新").OnEvent("Click", (*) => this.OnResetLoadFileBtnClick())
+        this.settingsGui.AddButton("x235 y768 w100 h35 vDonateBtn", "支持作者").OnEvent("Click", (*) => Run("https://ifdian.net/a/luodi"))
         this.settingsGui.SetFont("s11 bold")
-        this.settingsGui.AddButton("x465 y748 w120 h35 vStartBtn Default", "开始使用").OnEvent("Click", (*) => this.Hide())
+        this.settingsGui.AddButton("x465 y768 w120 h35 vStartBtn Default", "开始使用").OnEvent("Click", (*) => this.Hide())
         this.settingsGui.SetFont("s9 norm")
     }
 
@@ -148,7 +149,7 @@ class SettingsGuiManager {
         this._InvalidateParagraphs()
         this._ClearDirty()
         this.Refresh()
-        this.settingsGui.Show("w600 h800")
+        this.settingsGui.Show("w600 h820")
         this.settingsGui["StartBtn"].focus()
         Suspend(true)
         _InputMethodManager.Hide()
@@ -165,6 +166,7 @@ class SettingsGuiManager {
         this.settingsGui["InputMethodForeColorEdit"].Value := this._settingsData.inputMethodGuiforeColor
         this.settingsGui["InputMethodTextColorEdit"].Value := this._settingsData.inputMethodGuiTextColor
         this.settingsGui["ShowSettingsOnStart"].Value := this._settingsData.showSettingsOnStart
+        this.settingsGui["MinimalMode"].Value := this._settingsData.minimalMode
         this.settingsGui["HotkeySettingsCtrl"].Value := this._settingsData.hotkeySettings
         this.settingsGui["HotkeyExitCtrl"].Value := this._settingsData.hotkeyExit
 
@@ -500,6 +502,11 @@ class SettingsGuiManager {
 
     OnShowSettingsCheckboxChanged() {
         this._settingsData.showSettingsOnStart := this.settingsGui["ShowSettingsOnStart"].Value
+        _FileManager.SaveSettingsFile()
+    }
+
+    OnMinimalModeCheckboxChanged() {
+        this._settingsData.minimalMode := this.settingsGui["MinimalMode"].Value
         _FileManager.SaveSettingsFile()
     }
 

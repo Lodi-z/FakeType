@@ -58,6 +58,7 @@ class FileManager {
 	; 读取设置文件
 	LoadSettingsFile() {
 		this._settingsData.showSettingsOnStart := IniRead(this.configFile, "General", "ShowSettingsOnStart", 1)
+		this._settingsData.minimalMode := IniRead(this.configFile, "General", "MinimalMode", 0)
 		this._settingsData.inputMethodGuiBackColor := IniRead(this.configFile, "InputMethodColor", "BackColor", "")
 		this._settingsData.inputMethodGuiforeColor := IniRead(this.configFile, "InputMethodColor", "ForeColor", "")
 		this._settingsData.inputMethodGuiTextColor := IniRead(this.configFile, "InputMethodColor", "TextColor", "")
@@ -88,6 +89,7 @@ class FileManager {
 	; 保存设置文件
 	SaveSettingsFile() {
 		IniWrite(this._settingsData.showSettingsOnStart, this.configFile, "General", "ShowSettingsOnStart")
+		IniWrite(this._settingsData.minimalMode, this.configFile, "General", "MinimalMode")
 		IniWrite(this._settingsData.inputMethodGuiBackColor, this.configFile, "InputMethodColor", "BackColor")
 		IniWrite(this._settingsData.inputMethodGuiforeColor, this.configFile, "InputMethodColor", "ForeColor")
 		IniWrite(this._settingsData.inputMethodGuiTextColor, this.configFile, "InputMethodColor", "TextColor")
@@ -109,6 +111,7 @@ class NovelData {
 
 class SettingsData {
 	showSettingsOnStart := true
+	minimalMode := false
 	inputMethodGuiBackColor := ""
 	inputMethodGuiforeColor := ""
 	inputMethodGuiTextColor := ""
